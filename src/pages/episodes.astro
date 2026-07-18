@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+import EpisodeCard from '../components/EpisodeCard.astro';
+import { SITE, getFeed } from '../lib/podcast.js';
+
+const { episodes, total } = await getFeed();
+---
+
+<Layout
+  title="Episodes"
+  description="Every episode of the 8minute.ai™ Podcast — complex AI concepts, explained in about eight minutes each."
+>
+  <div class="page-header">
+    <div class="container">
+      <h1>All episodes</h1>
+      <p>
+        {total > 0 && `All ${total} episodes, newest first. `}Complex AI
+        concepts, explained in about eight minutes each.
+      </p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      {episodes.length > 0 ? (
+        <div class="episodes">
+          {episodes.map((episode) => (
+            <EpisodeCard episode={episode} />
+          ))}
+        </div>
+      ) : (
+        <div class="prose">
+          <p>
+            The episode list couldn't be loaded right now. You can browse every
+            episode directly on
+            <a href={SITE.podbeanSite} target="_blank" rel="noopener">Podbean</a>,
+            or listen in your favorite podcast app.
+          </p>
+          <a class="button primary" href="/#listen">Where to listen</a>
+        </div>
+      )}
+    </div>
+  </section>
+</Layout>

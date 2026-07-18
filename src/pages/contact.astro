@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE } from '../lib/podcast.js';
+---
+
+<Layout
+  title="Contact"
+  description="Get in touch with the 8minute.ai™ Podcast team."
+>
+  <div class="page-header">
+    <div class="container">
+      <h1>Get in touch</h1>
+      <p>
+        We'd love to receive feedback, questions, comments, episode requests,
+        or anything else you can think of.
+      </p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="prose">
+        <p>
+          The best way to reach us is by email. We read everything, and episode
+          requests genuinely shape what we cover next.
+        </p>
+        <a class="button primary" href={`mailto:${SITE.email}`}>
+          {SITE.email}
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

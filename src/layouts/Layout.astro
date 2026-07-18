@@ -1,0 +1,156 @@
+---
+import '@fontsource-variable/inter';
+import '../styles/global.css';
+import { SITE } from '../lib/podcast.js';
+
+const { title, description = SITE.tagline } = Astro.props;
+const pageTitle = title ? `${title} | ${SITE.fullTitle}` : SITE.fullTitle;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL('/images/cover-art.jpg', Astro.site);
+
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/episodes/', label: 'Episodes' },
+  { href: '/about/', label: 'About' },
+  { href: '/blog/', label: 'Blog' },
+  { href: '/contact/', label: 'Contact' },
+];
+
+const isCurrent = (href) =>
+  href === '/' ? Astro.url.pathname === '/' : Astro.url.pathname.startsWith(href);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+      // Set the theme before first paint to avoid a flash of the wrong theme.
+      document.documentElement.dataset.theme =
+        localStorage.getItem('theme') ??
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    </script>
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={SITE.fullTitle}
+      href={SITE.feedUrl}
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.fullTitle} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary" />
+    <noscript>
+      <style>
+        /* Without JS, episode cards can't toggle — show them fully expanded,
+           with the browser's native audio controls instead of the custom UI. */
+        .episode-player { display: flex !important; }
+        .episode-player audio { display: block !important; }
+        .player-controls, .player-bar { display: none !important; }
+        .episode-notes { display: block !important; }
+        .episode-excerpt, .episode-toggle { display: none !important; }
+        .episode { cursor: auto !important; align-items: flex-start !important; }
+      </style>
+    </noscript>
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'PodcastSeries',
+        name: SITE.fullTitle,
+        url: Astro.site?.href,
+        description: SITE.tagline,
+        image: ogImage.href,
+        webFeed: SITE.feedUrl,
+      })}
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="/">
+          <img src="/images/cover-art.jpg" alt="8minute.ai cover art" width="38" height="38" />
+          <span>8minute.ai<span class="tm">™</span></span>
+        </a>
+        <div class="header-actions">
+          <nav class="site-nav" aria-label="Main">
+            {navLinks.map((link) => (
+              <a href={link.href} aria-current={isCurrent(link.href) ? 'page' : undefined}>
+                {link.label}
+              </a>
+            ))}
+          </nav>
+          <button class="theme-toggle" aria-label="Toggle dark mode">
+            <svg
+              class="moon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+            <svg
+              class="sun"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footnote">
+          <p>{SITE.copyright}</p>
+        </div>
+        <nav aria-label="Footer">
+          <a href="/episodes/">Episodes</a>
+          <a href="/about/">About</a>
+          <a href="/contact/">Contact</a>
+          <a href={SITE.feedUrl}>RSS</a>
+          <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script is:inline>
+      document.querySelector('.theme-toggle').addEventListener('click', () => {
+        const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = next;
+        localStorage.setItem('theme', next);
+      });
+    </script>
+  </body>
+</html>

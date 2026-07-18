@@ -1,0 +1,83 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const hosts = [
+  {
+    name: 'Michael',
+    photo: '/images/michael-sm.jpg',
+    bio: "Michael is a software engineer with a focus on medical device manufacturing, passionate about keeping software and processes simple and intuitive for all skill levels. He loves automating anything and everything, in both his daily life and work, always striving to simplify. Beginning his career in tech support roles, he specialized in helping customers maximize their productivity using software like Microsoft Excel and other off-the-shelf applications. Later, he led the rollout and training of complex medical devices in hospitals, coordinating multiple departments to ensure smooth adoption and usage. And now, he's fascinated by AI's potential to make technology even more accessible and useful for everyone.",
+  },
+  {
+    name: 'Becka',
+    photo: '/images/becka-sm.jpg',
+    bio: "Becka has spent over 20 years in the medical device industry, working across manufacturing, operations, finance, and strategy. She's led international projects, launched new facilities, and rolled out systems that make work smoother and more efficient from the factory floor to executive offices. Whether it's setting up MRP systems or training teams around the world, Becka's all about making complex processes simpler. She loves helping people from all backgrounds learn and adapt, and she's passionate about using technology, especially AI, to make business (and life) a little easier for everyone.",
+  },
+  {
+    name: 'Garvin',
+    photo: '/images/garvin-sm.jpg',
+    bio: 'Garvin is a software engineer and creative with over two decades of experience in the medical device industry. He has led the development of everything from embedded firmware to user interfaces, while mentoring and growing high-performing engineering teams. With a dual background in computer science and art studio/design, Garvin blends deep technical expertise with a designer perspective, bringing thoughtful, human-centered solutions to healthcare and beyond. A passionate early adopter of generative AI, he regularly works with tools like DALL·E, Firefly, and Stable Diffusion, exploring their creative potential and ethical implications. Garvin is especially interested in how AI can enhance both product innovation and artistic expression.',
+  },
+];
+---
+
+<Layout
+  title="About"
+  description="Learn about the 8minute.ai™ Podcast and meet the hosts: Michael, Becka, and Garvin."
+>
+  <div class="page-header">
+    <div class="container">
+      <h1>About the show</h1>
+      <p>
+        The 8minute.ai™ podcast offers short episodes that simplify complex AI
+        topics. We give clear explanations of terminology with realistic
+        examples that anyone can understand.
+      </p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="prose">
+        <p>
+          We keep AI approachable for those who are looking to stay informed
+          without being overwhelmed. Explore essential AI concepts along with
+          current industry trends and practical applications in our series of
+          "byte"-sized episodes.
+        </p>
+      </div>
+      <figure class="team-photo">
+        <img
+          src="/images/ai4-team-sm.webp"
+          alt="Michael, Becka, and Garvin posing with a large Ai4 sign"
+          width="2024"
+          height="1171"
+          loading="lazy"
+        />
+        <figcaption>Michael, Becka, and Garvin at the Ai4 2024 conference</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container">
+      <h2 class="section-title">Meet the hosts</h2>
+      <p class="section-lead">Three friends from the medical device world, curious about AI.</p>
+      <div class="cards">
+        {hosts.map((host) => (
+          <div class="card">
+            <img
+              class="avatar"
+              src={host.photo}
+              alt={`Portrait of ${host.name}`}
+              width="720"
+              height="720"
+              loading="lazy"
+            />
+            <h3>{host.name}</h3>
+            <p>{host.bio}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,68 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ListenLinks from '../components/ListenLinks.astro';
+import EpisodeCard from '../components/EpisodeCard.astro';
+import { SITE, getFeed } from '../lib/podcast.js';
+
+const { episodes, total } = await getFeed(5);
+---
+
+<Layout>
+  <section class="hero">
+    <div class="container">
+      <div class="hero-copy">
+        <h1>AI, explained in <span class="accent">eight minutes</span>.</h1>
+        <p class="tagline">{SITE.tagline}</p>
+        <div class="cta-row">
+          <a class="button primary" href="#listen">Start listening</a>
+          <a class="button secondary" href="/about/">Meet the hosts</a>
+        </div>
+        {total > 0 && (
+          <p class="meta">
+            {total} bite-sized episodes and counting · For Humans By Humans™
+          </p>
+        )}
+      </div>
+      <div class="hero-art">
+        <img
+          src="/images/cover-art.jpg"
+          alt="8minute.ai podcast cover art"
+          width="420"
+          height="420"
+          fetchpriority="high"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="listen">
+    <div class="container">
+      <h2 class="section-title">Listen everywhere</h2>
+      <p class="section-lead">
+        New episodes wherever you get your podcasts. Pick your favorite app and
+        hit follow.
+      </p>
+      <ListenLinks />
+    </div>
+  </section>
+
+  {episodes.length > 0 && (
+    <section class="section alt" id="episodes">
+      <div class="container">
+        <h2 class="section-title">Latest episodes</h2>
+        <p class="section-lead">
+          Essential AI concepts, current industry trends, and practical
+          applications, in "byte"-sized episodes.
+        </p>
+        <div class="episodes">
+          {episodes.map((episode) => (
+            <EpisodeCard episode={episode} />
+          ))}
+        </div>
+        <div class="more-link">
+          <a class="button secondary" href="/episodes/">Browse all episodes</a>
+        </div>
+      </div>
+    </section>
+  )}
+</Layout>
