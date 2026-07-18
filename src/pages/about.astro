@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { withBase } from '../lib/podcast.js';
 
 const hosts = [
   {
@@ -47,7 +48,7 @@ const hosts = [
       </div>
       <figure class="team-photo">
         <img
-          src="/images/ai4-team-sm.webp"
+          src={withBase('/images/ai4-team-sm.webp')}
           alt="Michael, Becka, and Garvin posing with a large Ai4 sign"
           width="2024"
           height="1171"
@@ -67,7 +68,7 @@ const hosts = [
           <div class="card">
             <img
               class="avatar"
-              src={host.photo}
+              src={withBase(host.photo)}
               alt={`Portrait of ${host.name}`}
               width="720"
               height="720"

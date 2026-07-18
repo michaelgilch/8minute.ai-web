@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../lib/podcast.js';
+
 const { episode } = Astro.props;
 ---
 
@@ -6,7 +8,7 @@ const { episode } = Astro.props;
   <div class="episode-left">
     <img
       class="episode-art"
-      src="/images/cover-art.jpg"
+      src={withBase('/images/cover-art.jpg')}
       alt=""
       width="200"
       height="200"

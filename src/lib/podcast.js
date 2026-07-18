@@ -1,3 +1,11 @@
+/**
+ * Prefixes an internal path with the configured base path, so links work both
+ * on project pages (/8minute.ai-web/) and on the custom domain (/).
+ */
+export function withBase(path) {
+  return import.meta.env.BASE_URL.replace(/\/$/, '') + path;
+}
+
 export const SITE = {
   title: '8minute.ai',
   fullTitle: '8minute.ai™ Podcast',

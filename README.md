@@ -26,13 +26,26 @@ URLs, so nothing on this site breaks when the domain is repointed.
 
 ## Deploying to GitHub Pages
 
+Currently deployed as a **project site** at
+`https://michaelgilch.github.io/8minute.ai-web/` (also reachable via the user
+site's custom domain as `https://michaelgilchrist.dev/8minute.ai-web/` if that
+is configured). `astro.config.mjs` sets `base: '/8minute.ai-web'` accordingly,
+and all internal links go through the `withBase()` helper in
+`src/lib/podcast.js`.
+
 1. Create a GitHub repo and push this project to the `main` branch.
 2. In the repo: **Settings → Pages → Build and deployment → Source**, choose
    **GitHub Actions**. The included workflow
    (`.github/workflows/deploy.yml`) builds and deploys on every push to
    `main`, weekly on a schedule, and on manual dispatch.
-3. In **Settings → Pages → Custom domain**, enter `8minute.ai` (this matches
-   `public/CNAME`). Enable **Enforce HTTPS** once the certificate is issued.
+
+### Switching to the custom domain later
+
+1. In `astro.config.mjs`: set `site: 'https://8minute.ai'` and `base: '/'`.
+2. Recreate `public/CNAME` containing the single line `8minute.ai`.
+3. In **Settings → Pages → Custom domain**, enter `8minute.ai` and enable
+   **Enforce HTTPS** once the certificate is issued.
+4. Read the DNS/feed warning below FIRST.
 
 ## ⚠️ Before repointing DNS: the RSS feed
 

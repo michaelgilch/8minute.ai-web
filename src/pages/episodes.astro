@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import EpisodeCard from '../components/EpisodeCard.astro';
-import { SITE, getFeed } from '../lib/podcast.js';
+import { SITE, getFeed, withBase } from '../lib/podcast.js';
 
 const { episodes, total } = await getFeed();
 ---
@@ -36,7 +36,7 @@ const { episodes, total } = await getFeed();
             <a href={SITE.podbeanSite} target="_blank" rel="noopener">Podbean</a>,
             or listen in your favorite podcast app.
           </p>
-          <a class="button primary" href="/#listen">Where to listen</a>
+          <a class="button primary" href={withBase('/#listen')}>Where to listen</a>
         </div>
       )}
     </div>

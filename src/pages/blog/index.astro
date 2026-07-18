@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { withBase } from '../../lib/podcast.js';
 ---
 
 <Layout
@@ -23,7 +24,7 @@ import Layout from '../../layouts/Layout.astro';
           In the meantime, the podcast is the best place to find us. New
           episodes are about eight minutes each, so you can catch up fast.
         </p>
-        <a class="button primary" href="/#listen">Listen to the podcast</a>
+        <a class="button primary" href={withBase('/#listen')}>Listen to the podcast</a>
       </div>
     </div>
   </section>

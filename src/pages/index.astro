@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import ListenLinks from '../components/ListenLinks.astro';
 import EpisodeCard from '../components/EpisodeCard.astro';
-import { SITE, getFeed } from '../lib/podcast.js';
+import { SITE, getFeed, withBase } from '../lib/podcast.js';
 
 const { episodes, total } = await getFeed(5);
 ---
@@ -15,7 +15,7 @@ const { episodes, total } = await getFeed(5);
         <p class="tagline">{SITE.tagline}</p>
         <div class="cta-row">
           <a class="button primary" href="#listen">Start listening</a>
-          <a class="button secondary" href="/about/">Meet the hosts</a>
+          <a class="button secondary" href={withBase('/about/')}>Meet the hosts</a>
         </div>
         {total > 0 && (
           <p class="meta">
@@ -25,7 +25,7 @@ const { episodes, total } = await getFeed(5);
       </div>
       <div class="hero-art">
         <img
-          src="/images/cover-art.jpg"
+          src={withBase('/images/cover-art.jpg')}
           alt="8minute.ai podcast cover art"
           width="420"
           height="420"
@@ -60,7 +60,7 @@ const { episodes, total } = await getFeed(5);
           ))}
         </div>
         <div class="more-link">
-          <a class="button secondary" href="/episodes/">Browse all episodes</a>
+          <a class="button secondary" href={withBase('/episodes/')}>Browse all episodes</a>
         </div>
       </div>
     </section>
