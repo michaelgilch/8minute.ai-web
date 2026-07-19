@@ -27,25 +27,23 @@ const hosts = [
 >
   <div class="page-header">
     <div class="container">
-      <h1>About the show</h1>
+      <h1>About us</h1>
       <p>
         The 8minute.ai™ podcast offers short episodes that simplify complex AI
         topics. We give clear explanations of terminology with realistic
         examples that anyone can understand.
       </p>
+      <p>
+        We keep AI approachable for those who are looking to stay informed
+        without being overwhelmed. Explore essential AI concepts along with
+        current industry trends and practical applications in our series of
+        "byte"-sized episodes.
+      </p>
     </div>
   </div>
 
-  <section class="section">
+  <section class="section photo-section">
     <div class="container">
-      <div class="prose">
-        <p>
-          We keep AI approachable for those who are looking to stay informed
-          without being overwhelmed. Explore essential AI concepts along with
-          current industry trends and practical applications in our series of
-          "byte"-sized episodes.
-        </p>
-      </div>
       <figure class="team-photo">
         <img
           src={withBase('/images/ai4-team-sm.webp')}
@@ -82,3 +80,20 @@ const hosts = [
     </div>
   </section>
 </Layout>
+
+<style>
+  /* Intro copy spans the full container on this page. */
+  .page-header p {
+    max-width: none;
+  }
+
+  /* The photo sits directly under the header; without the prose block
+     above it, the stacked section padding and figure margin left a hole. */
+  .photo-section {
+    padding-top: 0.5rem;
+  }
+
+  .team-photo {
+    margin-top: 0;
+  }
+</style>
