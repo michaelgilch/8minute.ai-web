@@ -18,6 +18,14 @@ export const SITE = {
   feedUrl: 'https://feed.podbean.com/ai8minutes/feed.xml',
 };
 
+export const SOCIALS = [
+  {
+    name: 'LinkedIn',
+    icon: 'linkedin',
+    url: 'https://www.linkedin.com/company/8minute-ai/',
+  },
+];
+
 export const PLATFORMS = [
   {
     name: 'Apple Podcasts',

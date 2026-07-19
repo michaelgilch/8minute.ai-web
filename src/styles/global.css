@@ -302,6 +302,25 @@ img {
   color: var(--teal-deep);
 }
 
+.button .icon {
+  display: inline-flex;
+}
+
+.button .icon svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.button.icon-only {
+  padding: 0.75rem;
+}
+
+.button.icon-only .icon svg {
+  width: 24px;
+  height: 24px;
+}
+
 /* ---------- Sections ---------- */
 
 .section {
@@ -735,6 +754,27 @@ img {
 
 .site-footer nav a:hover {
   color: var(--coral);
+}
+
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-social a {
+  display: inline-flex;
+  color: var(--muted);
+}
+
+.footer-social a:hover {
+  color: var(--coral);
+}
+
+.footer-social svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
 }
 
 /* ---------- Responsive ---------- */

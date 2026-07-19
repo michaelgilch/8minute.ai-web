@@ -1,6 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { SITE } from '../lib/podcast.js';
+import { SITE, SOCIALS } from '../lib/podcast.js';
+
+const icons = import.meta.glob('../icons/*.svg', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+});
 ---
 
 <Layout
@@ -23,9 +29,23 @@ import { SITE } from '../lib/podcast.js';
 
   <section class="section contact-section">
     <div class="container">
-      <a class="button primary" href={`mailto:${SITE.email}`}>
-        {SITE.email}
-      </a>
+      <div class="cta-row">
+        <a class="button primary" href={`mailto:${SITE.email}`}>
+          <span class="icon" set:html={icons['../icons/email.svg']} />
+          {SITE.email}
+        </a>
+        {SOCIALS.map((social) => (
+          <a
+            class="button secondary icon-only"
+            href={social.url}
+            target="_blank"
+            rel="noopener"
+            aria-label={social.name}
+          >
+            <span class="icon" set:html={icons[`../icons/${social.icon}.svg`]} />
+          </a>
+        ))}
+      </div>
     </div>
   </section>
 </Layout>
