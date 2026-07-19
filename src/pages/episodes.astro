@@ -20,7 +20,7 @@ const { episodes, total } = await getFeed();
     </div>
   </div>
 
-  <section class="section">
+  <section class="section episodes-section">
     <div class="container">
       {episodes.length > 0 ? (
         <div class="episodes">
@@ -42,3 +42,16 @@ const { episodes, total } = await getFeed();
     </div>
   </section>
 </Layout>
+
+<style>
+  /* Intro copy spans the full container on this page. */
+  .page-header p {
+    max-width: none;
+  }
+
+  /* The episode list sits directly under the header; the stacked
+     section padding left a hole. */
+  .episodes-section {
+    padding-top: 0.5rem;
+  }
+</style>

@@ -14,20 +14,31 @@ import { SITE } from '../lib/podcast.js';
         We'd love to receive feedback, questions, comments, episode requests,
         or anything else you can think of.
       </p>
+      <p>
+        The best way to reach us is by email. We read everything, and episode
+        requests genuinely shape what we cover next.
+      </p>
     </div>
   </div>
 
-  <section class="section">
+  <section class="section contact-section">
     <div class="container">
-      <div class="prose">
-        <p>
-          The best way to reach us is by email. We read everything, and episode
-          requests genuinely shape what we cover next.
-        </p>
-        <a class="button primary" href={`mailto:${SITE.email}`}>
-          {SITE.email}
-        </a>
-      </div>
+      <a class="button primary" href={`mailto:${SITE.email}`}>
+        {SITE.email}
+      </a>
     </div>
   </section>
 </Layout>
+
+<style>
+  /* Intro copy spans the full container on this page. */
+  .page-header p {
+    max-width: none;
+  }
+
+  /* The email button sits directly under the header; the stacked
+     section padding left a hole. */
+  .contact-section {
+    padding-top: 0.5rem;
+  }
+</style>

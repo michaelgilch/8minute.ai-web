@@ -6,16 +6,19 @@ const hosts = [
   {
     name: 'Michael',
     photo: '/images/michael-sm.jpg',
+    linkedin: 'https://www.linkedin.com/in/michaelgilchrist',
     bio: "Michael is a software engineer with a focus on medical device manufacturing, passionate about keeping software and processes simple and intuitive for all skill levels. He loves automating anything and everything, in both his daily life and work, always striving to simplify. Beginning his career in tech support roles, he specialized in helping customers maximize their productivity using software like Microsoft Excel and other off-the-shelf applications. Later, he led the rollout and training of complex medical devices in hospitals, coordinating multiple departments to ensure smooth adoption and usage. And now, he's fascinated by AI's potential to make technology even more accessible and useful for everyone.",
   },
   {
     name: 'Becka',
     photo: '/images/becka-sm.jpg',
+    linkedin: 'https://www.linkedin.com/in/rebecca-seto-a76740329',
     bio: "Becka has spent over 20 years in the medical device industry, working across manufacturing, operations, finance, and strategy. She's led international projects, launched new facilities, and rolled out systems that make work smoother and more efficient from the factory floor to executive offices. Whether it's setting up MRP systems or training teams around the world, Becka's all about making complex processes simpler. She loves helping people from all backgrounds learn and adapt, and she's passionate about using technology, especially AI, to make business (and life) a little easier for everyone.",
   },
   {
     name: 'Garvin',
     photo: '/images/garvin-sm.jpg',
+    linkedin: 'https://www.linkedin.com/in/garvin-seto-18a30518',
     bio: 'Garvin is a software engineer and creative with over two decades of experience in the medical device industry. He has led the development of everything from embedded firmware to user interfaces, while mentoring and growing high-performing engineering teams. With a dual background in computer science and art studio/design, Garvin blends deep technical expertise with a designer perspective, bringing thoughtful, human-centered solutions to healthcare and beyond. A passionate early adopter of generative AI, he regularly works with tools like DALL·E, Firefly, and Stable Diffusion, exploring their creative potential and ethical implications. Garvin is especially interested in how AI can enhance both product innovation and artistic expression.',
   },
 ];
@@ -73,6 +76,14 @@ const hosts = [
               loading="lazy"
             />
             <h3>{host.name}</h3>
+            <a
+              class="host-linkedin"
+              href={host.linkedin}
+              target="_blank"
+              rel="noopener"
+            >
+              LinkedIn
+            </a>
             <p>{host.bio}</p>
           </div>
         ))}
@@ -95,5 +106,11 @@ const hosts = [
 
   .team-photo {
     margin-top: 0;
+  }
+
+  .host-linkedin {
+    display: inline-block;
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
   }
 </style>
