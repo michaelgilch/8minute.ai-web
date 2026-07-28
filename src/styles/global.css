@@ -344,6 +344,11 @@ img {
   margin-bottom: 2.25rem;
 }
 
+#episodes .section-lead,
+#listen .section-lead {
+  max-width: none;
+}
+
 /* ---------- Listen links ---------- */
 
 .platforms {
