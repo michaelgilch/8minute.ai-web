@@ -10,7 +10,7 @@ export const SITE = {
   title: '8minute.ai',
   fullTitle: '8minute.ai™ Podcast',
   tagline:
-    'A podcast that breaks down complex artificial intelligence concepts into easy-to-understand episodes, each just eight minutes long.',
+    'A podcast that breaks down complex artificial intelligence topics into easy-to-understand episodes, each just eight minutes long.',
   email: 'info@8minute.ai',
   copyright: 'Copyright 2025 All rights reserved. For Humans By Humans™',
   // Podbean-native URLs so nothing breaks when the 8minute.ai domain moves to GitHub Pages.
