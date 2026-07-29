@@ -79,6 +79,13 @@ const isCurrent = (href) =>
         webFeed: SITE.feedUrl,
       })}
     />
+    {import.meta.env.PROD && (
+        <script defer
+            src="https://analytics.8minute.ai/script.js"
+            data-website-id="5a0fac74-645b-465a-8cb1-edca3b07f6be"
+            data-domains="8minute.ai,www.8minute.ai">
+        />
+    )}
   </head>
   <body>
     <header class="site-header">
