@@ -34,7 +34,7 @@ export const PLATFORMS = [
   {
     name: 'Spotify',
     icon: 'spotify',
-    url: 'https://open.spotify.com/show/3TIUCfhLa4TcD2FGrutXSZ',
+    url: 'https://open.spotify.com/show/67zbEn3e7PuCPFokKjHGXp',
   },
   {
     name: 'YouTube',
