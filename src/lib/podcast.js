@@ -1,6 +1,5 @@
 /**
- * Prefixes an internal path with the configured base path, so links work both
- * on project pages (/8minute.ai-web/) and on the custom domain (/).
+ * Prefixes an internal path with the configured base path.
  */
 export function withBase(path) {
   return import.meta.env.BASE_URL.replace(/\/$/, '') + path;
