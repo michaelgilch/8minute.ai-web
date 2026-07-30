@@ -39,7 +39,7 @@ export const PLATFORMS = [
   {
     name: 'YouTube',
     icon: 'youtube',
-    url: 'https://www.youtube.com/playlist?list=PLZFisPPjsuurYLVZyXKqNuc-4ieB-nm9a',
+    url: 'https://www.youtube.com/@8minuteAI',
   },
   {
     name: 'Amazon Music',
