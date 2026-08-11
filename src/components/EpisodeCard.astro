@@ -4,7 +4,7 @@ import { withBase } from '../lib/podcast.js';
 const { episode } = Astro.props;
 ---
 
-<article class="episode">
+<article class="episode" id={episode.slug} data-episode-number={episode.number}>
   <div class="episode-left">
     <img
       class="episode-art"
@@ -48,6 +48,25 @@ const { episode } = Astro.props;
     <p class="episode-excerpt">{episode.excerpt}</p>
     <div class="episode-notes" set:html={episode.notesHtml} />
   </div>
+  <button
+    class="episode-link"
+    aria-label={`Copy link to ${episode.title}`}
+    title="Copy link to this episode"
+  >
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.5 1.5" />
+      <path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.5-1.5" />
+    </svg>
+    <span class="episode-link-copied" aria-hidden="true">Copied</span>
+  </button>
   <button class="episode-toggle" aria-expanded="false" aria-label="Toggle episode details">
     <svg
       viewBox="0 0 24 24"
@@ -70,9 +89,64 @@ const { episode } = Astro.props;
     if (!(event.target instanceof Element)) return;
     const card = event.target.closest('.episode');
     if (!card) return;
-    if (event.target.closest('a, .episode-player, .episode-notes')) return;
+    if (event.target.closest('a, .episode-player, .episode-notes, .episode-link')) return;
     const open = card.classList.toggle('open');
     card.querySelector('.episode-toggle')?.setAttribute('aria-expanded', String(open));
+  });
+
+  // Deep links: /episodes/#44-some-episode opens that card so the visitor only
+  // has to hit play. #44 and #ep44 are accepted as shorthand for the same card.
+  const findCard = (hash) => {
+    const id = decodeURIComponent(hash.replace(/^#/, '')).toLowerCase();
+    if (!id) return null;
+    const direct = document.getElementById(id);
+    if (direct?.classList.contains('episode')) return direct;
+    const number = (id.match(/^(?:ep(?:isode)?[-_]?)?(\d+)$/) || [])[1];
+    if (!number) return null;
+    return document.querySelector(`.episode[data-episode-number="${Number(number)}"]`);
+  };
+
+  const openFromHash = (smooth) => {
+    const card = findCard(window.location.hash);
+    if (!card) return;
+    card.classList.add('open');
+    card.querySelector('.episode-toggle')?.setAttribute('aria-expanded', 'true');
+    card.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+  };
+
+  // The browser's own jump lands before the card expands, so position it here.
+  openFromHash(false);
+
+  // This module is deferred, so Chrome's scroll restoration runs after it and
+  // resets us to the top; images settling also shifts the target. Re-apply once
+  // on load, unless the visitor has already taken over the scroll themselves.
+  let userScrolled = false;
+  const markScrolled = () => {
+    userScrolled = true;
+  };
+  window.addEventListener('wheel', markScrolled, { passive: true, once: true });
+  window.addEventListener('touchmove', markScrolled, { passive: true, once: true });
+  window.addEventListener('keydown', markScrolled, { once: true });
+  window.addEventListener('load', () => !userScrolled && openFromHash(false), { once: true });
+
+  window.addEventListener('hashchange', () => openFromHash(true));
+
+  // Copy a link to this site's episode anchor (never the Podbean page).
+  document.querySelectorAll('.episode-link').forEach((button) => {
+    const card = button.closest('.episode');
+    if (!card) return;
+    button.addEventListener('click', async () => {
+      const url = `${window.location.origin}${window.location.pathname}#${card.id}`;
+      try {
+        await navigator.clipboard.writeText(url);
+        button.classList.add('copied');
+        setTimeout(() => button.classList.remove('copied'), 1600);
+      } catch {
+        // Clipboard blocked (insecure context, denied permission): fall back to
+        // putting the anchor in the address bar so it can be copied manually.
+        window.location.hash = card.id;
+      }
+    });
   });
 
   // Only one episode playing at a time. The play event doesn't bubble, so

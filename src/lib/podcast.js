@@ -88,6 +88,22 @@ function excerpt(html, maxLength = 160) {
   return text.slice(0, text.lastIndexOf(' ', maxLength)) + '…';
 }
 
+/**
+ * Builds the anchor slug for an episode from its Podbean permalink
+ * (https://…/e/44-ai4-2026-highlights/ -> "44-ai4-2026-highlights"), falling
+ * back to the episode number and then the title. Only the path segment is
+ * borrowed; episodes always play on this site, never on Podbean.
+ */
+function slugify(link, number, title) {
+  const fromLink = (link.match(/\/e\/([^/?#]+)/) || [])[1];
+  if (fromLink) return fromLink.toLowerCase();
+  const fromTitle = title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+  return number ? `${number}-${fromTitle}` : fromTitle;
+}
+
 function formatDuration(seconds) {
   const n = Number(seconds);
   if (!n) return '';
@@ -105,6 +121,12 @@ async function fetchAndParseFeed() {
       url: tag(item, 'link').replace(
         'https://www.8minute.ai/',
         `${SITE.podbeanSite}/`
+      ),
+      number: Number(tag(item, 'itunes:episode')) || 0,
+      slug: slugify(
+        tag(item, 'link'),
+        Number(tag(item, 'itunes:episode')) || 0,
+        decodeEntities(tag(item, 'title'))
       ),
       date: new Date(tag(item, 'pubDate')).toLocaleDateString('en-US', {
         year: 'numeric',

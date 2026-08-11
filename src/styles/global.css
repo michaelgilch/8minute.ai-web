@@ -417,6 +417,8 @@ img {
   box-shadow: var(--shadow);
   cursor: pointer;
   transition: border-color 0.12s ease;
+  /* Clears the sticky header when a deep link jumps to this card. */
+  scroll-margin-top: 5rem;
 }
 
 .episode:hover,
@@ -594,6 +596,64 @@ img {
     opacity: 0;
     transform: translateY(4px);
   }
+}
+
+/* Permalink button, tucked beneath the expand chevron. */
+.episode-link {
+  position: absolute;
+  top: 3.1rem;
+  right: 1.1rem;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+
+.episode:hover .episode-link,
+.episode-link:focus-visible,
+.episode-link.copied {
+  opacity: 1;
+}
+
+/* No hover on touch, so the button has to stay visible there. */
+@media (hover: none) {
+  .episode-link {
+    opacity: 1;
+  }
+}
+
+.episode-link:hover {
+  background: var(--peach-soft);
+  color: var(--ink);
+}
+
+.episode-link svg {
+  width: 17px;
+  height: 17px;
+}
+
+.episode-link-copied {
+  position: absolute;
+  right: calc(100% + 0.35rem);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--teal-deep);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+
+.episode-link.copied .episode-link-copied {
+  opacity: 1;
 }
 
 .episode-toggle {
